@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>化学微观反应示意图｜题型精解</title>
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-light: #eff6ff;
+      --accent: #2563eb;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px 14px 40px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 16px 0;
+    }
+    .badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1e40af;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+    h1 {
+      font-size: 26px;
+      color: #0f172a;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+      border: 1px solid var(--border);
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .card-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    /* SVG Model Box */
+    .model-container {
+      background: #f1f5f9;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .model-svg {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+    }
+    .formula-banner {
+      background: #e0e7ff;
+      color: #3730a3;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-family: "Courier New", monospace;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+    }
+    /* Table Styling */
+    .analysis-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    .analysis-table th, .analysis-table td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .analysis-table th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 600;
+    }
+    /* Option Cards */
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .option-item.correct {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .option-item.wrong {
+      background: #fef2f2;
+      border-color: #fca5a5;
+    }
+    .opt-tag {
+      font-weight: 800;
+      font-size: 16px;
+      min-width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+    .option-item.correct .opt-tag {
+      background: #22c55e;
+      color: #fff;
+    }
+    .option-item.wrong .opt-tag {
+      background: #ef4444;
+      color: #fff;
+    }
+    .opt-content {
+      flex: 1;
+    }
+    .opt-equation {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .opt-desc {
+      font-size: 13px;
+      color: #4b5563;
+    }
+    /* Tips List */
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .step-card {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: #f8fafc;
+      padding: 12px 14px;
+      border-radius: 10px;
+    }
+    .step-num {
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-text h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
+    .step-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">初中化学 · 核心考点</span>
+      <h1>化学反应微观示意图精解</h1>
+      <p class="subtitle">从微观模型到宏观化学方程式的“三步秒杀法”</p>
+    </header>
+
+    <!-- 原题模型与图解 -->
+    <section class="card">
+      <div class="card-title">原题微观反应模型解析</div>
+      <div class="model-container">
+        <svg class="model-svg" viewBox="0 0 540 130" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- 黑色小球渐变 -->
+            <radialGradient id="blackSphere" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#64748b"/>
+              <stop offset="40%" stop-color="#1e293b"/>
+              <stop offset="100%" stop-color="#020617"/>
+            </radialGradient>
+            <!-- 白色小球渐变 -->
+            <radialGradient id="whiteSphere" cx="35%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="60%" stop-color="#cbd5e1"/>
+              <stop offset="100%" stop-color="#94a3b8"/>
+            </radialGradient>
+            <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="1" dy="2" stdDeviation="2" flood-opacity="0.25"/>
+            </filter>
+          </defs>
+
+          <!-- 反应物1: 2个 ●● 分子 -->
+          <g filter="url(#shadow)">
+            <!-- 分子 1 上 -->
+            <circle cx="50" cy="38" r="16" fill="url(#blackSphere)"/>
+            <circle cx="76" cy="38" r="16" fill="url(#blackSphere)"/>
+            <!-- 分子 2 下 -->
+            <circle cx="50" cy="88" r="16" fill="url(#blackSphere)"/>
+            <circle cx="76" cy="88" r="16" fill="url(#blackSphere)"/>
+          </g>
+          <text x="63" y="122" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">2 个 A₂ (单质)</text>
+
+          <!-- 加号 -->
+          <text x="130" y="68" font-size="28" font-weight="bold" fill="#64748b" text-anchor="middle">+</text>
+
+          <!-- 反应物2: 1个 ○○ 分子 -->
+          <g filter="url(#shadow)">
+            <circle cx="180" cy="50" r="16" fill="url(#whiteSphere)"/>
+            <circle cx="180" cy="76" r="16" fill="url(#whiteSphere)"/>
+          </g>
+          <text x="180" y="122" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">1 个 B₂ (单质)</text>
+
+          <!-- 反应箭头 -->
+          <g transform="translate(230, 52)">
+            <line x1="0" y1="10" x2="45" y2="10" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+            <polygon points="43,3 55,10 43,17" fill="#3b82f6"/>
+            <text x="27" y="-2" font-size="11" fill="#3b82f6" font-weight="bold" text-anchor="middle">反应</text>
+          </g>
+
+          <!-- 生成物: 2个 ○●○ 分子 -->
+          <g filter="url(#shadow)">
+            <!-- 生成物 1 上 -->
+            <circle cx="340" cy="38" r="15" fill="url(#whiteSphere)"/>
+            <circle cx="366" cy="38" r="16" fill="url(#blackSphere)"/>
+            <circle cx="392" cy="38" r="15" fill="url(#whiteSphere)"/>
+
+            <!-- 生成物 2 下 -->
+            <circle cx="340" cy="88" r="15" fill="url(#whiteSphere)"/>
+            <circle cx="366" cy="88" r="16" fill="url(#blackSphere)"/>
+            <circle cx="392" cy="88" r="15" fill="url(#whiteSphere)"/>
+          </g>
+          <text x="366" y="122" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">2 个 AB₂ / A₂B (化合物)</text>
+        </svg>
+      </div>
+
+      <div class="formula-banner">
+        反应对应通式：2 A₂ + B₂ ──→ 2 A₂B
+      </div>
+
+      <table class="analysis-table">
+        <thead>
+          <tr>
+            <th>物质角色</th>
+            <th>模型结构</th>
+            <th>分子属性</th>
+            <th>对应微粒数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>反应物 1</strong></td>
+            <td>2 个由同种黑色球组成的双球</td>
+            <td>双原子单质分子</td>
+            <td><strong>2</strong> 个分子</td>
+          </tr>
+          <tr>
+            <td><strong>反应物 2</strong></td>
+            <td>1 个由同种白色球组成的双球</td>
+            <td>双原子单质分子</td>
+            <td><strong>1</strong> 个分子</td>
+          </tr>
+          <tr>
+            <td><strong>生成物</strong></td>
+            <td>2 个“两白夹一黑”的三球组合</td>
+            <td>三原子化合物分子</td>
+            <td><strong>2</strong> 个分子</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 选项逐一研判 -->
+    <section class="card">
+      <div class="card-title">选项逐项深度辨析</div>
+
+      <!-- A 选项 -->
+      <div class="option-item correct">
+        <div class="opt-tag">A</div>
+        <div class="opt-content">
+          <div class="opt-equation" style="color:#16a34a;">2H₂ + O₂ ──点燃──→ 2H₂O 【正确答案】</div>
+          <div class="opt-desc">
+            ✅ <strong>反应物：</strong>H₂ 与 O₂ 均为双原子单质分子，分子个数比为 2 : 1。<br>
+            ✅ <strong>生成物：</strong>H₂O 为三原子化合物分子，生成 2 个分子。微观与宏观完全吻合！
+          </div>
+        </div>
+      </div>
+
+      <!-- B 选项 -->
+      <div class="option-item wrong">
+        <div class="opt-tag">B</div>
+        <div class="opt-content">
+          <div class="opt-equation" style="color:#dc2626;">2CO + O₂ ──点燃──→ 2CO₂ 【错误】</div>
+          <div class="opt-desc">
+            ❌ <strong>分子类型不符：</strong>CO 是由不同种原子构成的化合物（应为一黑一白球），而题图反应物 1 是同种原子构成的单质（两黑球）。
+          </div>
+        </div>
+      </div>
+
+      <!-- C 选项 -->
+      <div class="option-item wrong">
+        <div class="opt-tag">C</div>
+        <div class="opt-content">
+          <div class="opt-equation" style="color:#dc2626;">CO₂ + H₂O ────→ H₂CO₃ 【错误】</div>
+          <div class="opt-desc">
+            ❌ <strong>分子个数比与类型均不符：</strong>反应物均为化合物，且计量数之比为 1 : 1 : 1，与题图 2 : 1 : 2 严重矛盾。
+          </div>
+        </div>
+      </div>
+
+      <!-- D 选项 -->
+      <div class="option-item wrong">
+        <div class="opt-tag">D</div>
+        <div class="opt-content">
+          <div class="opt-equation" style="color:#dc2626;">H₂ + Cl₂ ──点燃──→ 2HCl 【错误】</div>
+          <div class="opt-desc">
+            ❌ <strong>计量比与原子数不符：</strong>反应物个数比为 1 : 1（图中为 2 : 1）；生成物 HCl 仅含 2 个原子，而图示生成物含有 3 个原子。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 秒杀法与总结 -->
+    <section class="card">
+      <div class="card-title">微观示意图题型“三步秒杀法”</div>
+      <div class="step-list">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <h4>定分子类别（单质 vs 化合物）</h4>
+            <p>同种原子构成的球团为<strong>单质</strong>，不同种原子组合为<strong>化合物</strong>。快速排除反应物种类不匹配的选项。</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <h4>数分子个数（化学计量数之比）</h4>
+            <p>直接数出反应前后的分子个数（注意约分或排除过量未反应分子），确定化学反应方程式的计量数之比。</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <h4>验原子守恒（原子总数与构成）</h4>
+            <p>观察每个分子的原子构成（如 3 原子分子），并核对反应前后各色小球总数是否严格守恒。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      初中化学微观反应题型卡片 · 助学课件
+    </div>
+  </div>
+</body>
+</html>
